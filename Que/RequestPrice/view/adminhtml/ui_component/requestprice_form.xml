@@ -1,0 +1,126 @@
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">requestprice_form.requestprice_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Edit Request Price</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <namespace>requestprice_form</namespace>
+        <dataScope>data</dataScope>
+        <buttons>
+            <button name="save">
+                <url path="request_price/requestprice_form/save"/>
+                <class>primary</class>
+                <label translate="true">Save</label>
+            </button>
+        </buttons>
+        <deps>
+            <dep>requestprice_form.requestprice_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="requestprice_form_data_source" component="Magento_Ui/js/form/provider">
+        <settings>
+            <submitUrl path="request_price/requestprice_form/save"/>
+        </settings>
+        <dataProvider class="Que\RequestPrice\Model\DataProvider" name="requestprice_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="request_price">
+        <settings>
+            <label translate="true">Detail page</label>
+        </settings>
+        <field name="id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">requestprice</item>
+                </item>
+            </argument>
+            <settings>
+                <label>ID</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+        <field name="name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">requestprice</item>
+                </item>
+            </argument>
+            <settings>
+                <label>Name</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+        <field name="email" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">requestprice</item>
+                </item>
+            </argument>
+            <settings>
+                <label>Email</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+        <field name="comment" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">requestprice</item>
+                </item>
+            </argument>
+            <settings>
+                <label>Comment</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+        <field name="product_sku" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">requestprice</item>
+                </item>
+            </argument>
+            <settings>
+                <label>Product Sku</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+        <field name="created_at" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">requestprice</item>
+                </item>
+            </argument>
+            <settings>
+                <label>Created At</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+        <field name="status" formElement="select">
+            <settings>
+                <label>Status</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Que\RequestPrice\Model\Config\Source\Status" />
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+    </fieldset>
+</form>

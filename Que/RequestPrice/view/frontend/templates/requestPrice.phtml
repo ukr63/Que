@@ -1,0 +1,82 @@
+<button id="button">
+    <span><?= __('Request Price') ?></span>
+</button>
+
+<div id="modal">
+    <div class="modal-body-content">
+        <div id="errors" style="color: red"></div>
+        <div id="success" style="color: green"></div>
+        <form action="/request_price/from/save" method="POST" id="request-from">
+            <div class="field name">
+                <label class="label" for="name"><span><?php echo __('Name') ?></span></label>
+                <div class="control">
+                    <input name="name" required="required" id="name" title="<?php echo __('Name') ?>" value=""
+                           class="input-text" type="text"/>
+                </div>
+            </div>
+            <div class="field email">
+                <label class="label" for="email"><span><?php echo __('Email') ?></span></label>
+                <div class="control">
+                    <input name="email" id="email" required="required" title="<?php echo __('Email') ?>" value=""
+                           class="input-text" type="text"/>
+                </div>
+            </div>
+            <div class="field comment">
+                <label class="label" for="comment"><span><?php echo __('Comment') ?></span></label>
+                <div class="control">
+                    <textarea name="comment" id="comment" title="<?php echo __('Comment') ?>"
+                              class="input-text"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require([
+        "jquery",
+        "Magento_Ui/js/modal/modal"
+    ], function ($, modal) {
+
+        var options = {
+            type: 'popup',
+            responsive: true,
+            title: 'Request Price',
+            buttons: [{
+                text: $.mage.__('Request'),
+                class: '',
+                click: function () {
+                    var sel = this;
+                    const formData = {
+                        productId: <?= $block->getRequest()->getParam('id') ?>,
+                        name: $("#name").val(),
+                        email: $("#email").val(),
+                        comment: $("#comment").val(),
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: "/request_price/form/save",
+                        data: formData,
+                        dataType: "json",
+                        encode: true,
+                    }).done(function (data) {
+                        console.log(data);
+                        if (data.errors) {
+                            $("#errors").text(data.errors);
+                        }
+                        if (data.success) {
+                            $("#errors").empty();
+                            $("#success").text(data.success.message);
+                            sel.closeModal();
+                        }
+                    });
+                }
+            }]
+        };
+
+        var popup = modal(options, $('#modal'));
+        $("#button").click(function () {
+            $('#modal').modal('openModal');
+        });
+    });
+</script>
